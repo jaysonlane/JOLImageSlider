@@ -70,8 +70,6 @@
 
 - (void) loadData
 {
-    
-    NSLog(@"slide count: %i", [_slideArray count]);
     if([_slideArray count] > 0)
     {
         [_scrollView setContentSize:CGSizeMake(_scrollView.frame.size.width * ([_slideArray count]+2),
@@ -80,9 +78,6 @@
         //Add last slide to beginning
         
         JOLImageSlide *theSlide = [_slideArray objectAtIndex: [_slideArray count]-1];
-        
-        
-        NSLog(@"Adding slide FIRST // %@ // %@", theSlide.title, theSlide.image);
         
         CGRect imageFrame = CGRectMake(_scrollView.frame.size.width * 0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
@@ -113,8 +108,6 @@
         
         for (int i = 0; i < [_slideArray count]; i++) {
             JOLImageSlide *theSlide = [_slideArray objectAtIndex: i];
-            
-            NSLog(@"Adding slide: %i // %@ // %@", i, theSlide.title, theSlide.image);
             
             CGRect imageFrame = CGRectMake(_scrollView.frame.size.width * (i+1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
             
@@ -149,9 +142,6 @@
         //add first slide to the end
         
         theSlide = [_slideArray objectAtIndex: 0];
-        
-        
-        NSLog(@"Adding slide LAST // %@ // %@", theSlide.title, theSlide.image);
         
         imageFrame = CGRectMake(_scrollView.frame.size.width * ([_slideArray count]+1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         imageView = [[UIImageView alloc] initWithFrame:imageFrame];
