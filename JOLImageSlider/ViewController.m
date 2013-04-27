@@ -37,6 +37,7 @@
     
     JOLImageSlider *imageSlider = [[JOLImageSlider alloc] initWithFrame:CGRectMake(0, 0, 320, 140) andSlides: slideSet];
     
+    imageSlider.delegate = self;
     [imageSlider setAutoSlide: YES];
     [imageSlider setPlaceholderImage:@"placeholder.png"];
     [imageSlider setContentMode: UIViewContentModeScaleAspectFill];
@@ -51,6 +52,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) imagePager:(JOLImageSlider *)imagePager didSelectImageAtIndex:(NSUInteger)index {
+    NSLog(@"Selected slide at index: %i", index);
 }
 
 @end

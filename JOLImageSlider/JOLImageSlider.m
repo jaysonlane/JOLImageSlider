@@ -121,7 +121,7 @@
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
             [imageView setBackgroundColor:[UIColor clearColor]];
             [imageView setContentMode:_contentMode];
-            [imageView setTag:[_slideArray count]-1];
+            [imageView setTag:i];
             [imageView setImageWithURL: [NSURL URLWithString:(NSString *)theSlide.image] placeholderImage: [UIImage imageNamed:_placeholderImage]];
             
             
@@ -157,7 +157,7 @@
         imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [imageView setBackgroundColor:[UIColor clearColor]];
         [imageView setContentMode:_contentMode];
-        [imageView setTag:[_slideArray count]-1];
+        [imageView setTag:0];
         [imageView setImageWithURL:[NSURL URLWithString:(NSString *)theSlide.image] placeholderImage:[UIImage imageNamed:_placeholderImage]];
         
         titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, (imageFrame.size.height - 28), imageFrame.size.width-70, 24)];
