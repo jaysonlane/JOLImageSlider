@@ -1,0 +1,4 @@
+JOLImageSlider
+==============
+
+An image slider
