@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JOLImageSlider.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <JOLImageSliderDelegate>
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "JOLImageSlider.h"
-#import "JOLImageSlide.h"
+#import "UIImageView+WebCache.h"
 
 @implementation JOLImageSlider
 
@@ -15,22 +15,42 @@
 @synthesize scrollView = _scrollView;
 @synthesize contentMode = _contentMode;
 @synthesize placeholderImage = _placeholderImage;
+@synthesize autoSlide = _autoSlide;
+@synthesize titleFont = _titleFont;
+@synthesize titleColor = _titleColor;
 
 @synthesize delegate = _delegate;
 
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andSlides:(NSArray *)slideSet
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        _slideArray = [[NSArray alloc] initWithArray: slideSet];
+        _autoSlide = NO;
+        
+        
+        _titleColor = [UIColor whiteColor];
+        _titleFont = [UIFont fontWithName:@"Helvetica-Bold" size: 16];
+        
     }
     return self;
 }
 
 - (void) layoutSubviews {
     [self initialize];
+    
+    
+    if(_autoSlide) {
+        [NSTimer scheduledTimerWithTimeInterval:3.5
+                                         target:self
+                                       selector:@selector(advanceSlide)
+                                       userInfo:nil
+                                        repeats:YES];
+    }
 }
+
 
 - (void) initialize {
     self.clipsToBounds = YES;
@@ -41,11 +61,17 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.autoresizingMask = self.autoresizingMask;
+    
+    
     [self addSubview:_scrollView];
+    
+    [self loadData];
 }
 
 - (void) loadData
 {
+    
+    NSLog(@"slide count: %i", [_slideArray count]);
     if([_slideArray count] > 0)
     {
         [_scrollView setContentSize:CGSizeMake(_scrollView.frame.size.width * ([_slideArray count]+2),
@@ -55,6 +81,9 @@
         
         JOLImageSlide *theSlide = [_slideArray objectAtIndex: [_slideArray count]-1];
         
+        
+        NSLog(@"Adding slide FIRST // %@ // %@", theSlide.title, theSlide.image);
+        
         CGRect imageFrame = CGRectMake(_scrollView.frame.size.width * 0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [imageView setBackgroundColor:[UIColor clearColor]];
@@ -62,10 +91,11 @@
         [imageView setTag:[_slideArray count]-1];
         [imageView setImageWithURL:[NSURL URLWithString:(NSString *)theSlide.image] placeholderImage:[UIImage imageNamed:_placeholderImage]];
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(60, (imageFrame.size.height - 40), imageFrame.size.width-70, 24)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, (imageFrame.size.height - 28), imageFrame.size.width-70, 24)];
         titleLabel.text = theSlide.title;
         titleLabel.backgroundColor = [UIColor clearColor];
-        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.textColor = _titleColor;
+        titleLabel.font = _titleFont;
         
         [imageView addSubview: titleLabel];
         
@@ -82,19 +112,24 @@
         //Add all slides
         
         for (int i = 0; i < [_slideArray count]; i++) {
-            JOLImageSlide *theSlide = [_slideArray objectAtIndex: [_slideArray count]-1];
+            JOLImageSlide *theSlide = [_slideArray objectAtIndex: i];
             
-            CGRect imageFrame = CGRectMake(_scrollView.frame.size.width * 0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+            NSLog(@"Adding slide: %i // %@ // %@", i, theSlide.title, theSlide.image);
+            
+            CGRect imageFrame = CGRectMake(_scrollView.frame.size.width * (i+1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+            
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
             [imageView setBackgroundColor:[UIColor clearColor]];
             [imageView setContentMode:_contentMode];
             [imageView setTag:[_slideArray count]-1];
-            [[imageView setImageWithURL:[NSURL URLWithString:(NSString *)theSlide.image] placeholderImage:[UIImage imageNamed:_placeholderImage]];
+            [imageView setImageWithURL: [NSURL URLWithString:(NSString *)theSlide.image] placeholderImage: [UIImage imageNamed:_placeholderImage]];
             
-            UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(60, (imageFrame.size.height - 40), imageFrame.size.width-70, 24)];
+            
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, (imageFrame.size.height - 28), imageFrame.size.width-70, 24)];
             titleLabel.text = theSlide.title;
             titleLabel.backgroundColor = [UIColor clearColor];
-            titleLabel.textColor = [UIColor whiteColor];
+            titleLabel.textColor = _titleColor;
+            titleLabel.font = _titleFont;
             
             [imageView addSubview: titleLabel];
             
@@ -106,25 +141,30 @@
             [imageView addGestureRecognizer:singleTapGestureRecognizer];
             [imageView setUserInteractionEnabled:YES];
             
+            
             [_scrollView addSubview:imageView];
 
         }
         
         //add first slide to the end
         
-        theSlide = [_slideArray objectAtIndex: [_slideArray count]-1];
+        theSlide = [_slideArray objectAtIndex: 0];
         
-        imageFrame = CGRectMake(_scrollView.frame.size.width * 0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+        
+        NSLog(@"Adding slide LAST // %@ // %@", theSlide.title, theSlide.image);
+        
+        imageFrame = CGRectMake(_scrollView.frame.size.width * ([_slideArray count]+1), 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         imageView = [[UIImageView alloc] initWithFrame:imageFrame];
         [imageView setBackgroundColor:[UIColor clearColor]];
         [imageView setContentMode:_contentMode];
         [imageView setTag:[_slideArray count]-1];
         [imageView setImageWithURL:[NSURL URLWithString:(NSString *)theSlide.image] placeholderImage:[UIImage imageNamed:_placeholderImage]];
         
-        titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(60, (imageFrame.size.height - 40), imageFrame.size.width-70, 24)];
+        titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, (imageFrame.size.height - 28), imageFrame.size.width-70, 24)];
         titleLabel.text = theSlide.title;
         titleLabel.backgroundColor = [UIColor clearColor];
-        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.textColor = _titleColor;
+        titleLabel.font = _titleFont;
         
         [imageView addSubview: titleLabel];
         
@@ -135,6 +175,7 @@
         [singleTapGestureRecognizer setNumberOfTapsRequired:1];
         [imageView addGestureRecognizer:singleTapGestureRecognizer];
         [imageView setUserInteractionEnabled:YES];
+        
         
         [_scrollView addSubview:imageView];
         
@@ -169,6 +210,10 @@
     }
 
     
+}
+
+- (void) advanceSlide {
+    [_scrollView setContentOffset: CGPointMake((_scrollView.contentOffset.x + _scrollView.frame.size.width), 0) animated:YES];
 }
 
 /*

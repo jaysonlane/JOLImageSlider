@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JOLImageSlide.h"
 
 @class JOLImageSlider;
 
@@ -27,18 +28,28 @@
     NSArray *slideArray;
     UIScrollView *scrollView;
     UIViewContentMode contentMode;
+    UIFont *titleFont;
+    UIColor *titleColor;
     
     NSString *placeholderImage;
-
+    
+    BOOL autoSlide;
+    
 }
 
 @property (nonatomic, retain) NSArray *slideArray;
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic) UIViewContentMode contentMode;
+@property (nonatomic, retain) UIFont *titleFont;
+@property (nonatomic, retain) UIColor *titleColor;
 
 @property (nonatomic, retain) NSString *placeholderImage;
 
+@property (nonatomic) BOOL autoSlide;
+
 @property (nonatomic, weak) id <JOLImageSliderDelegate> delegate;
+
+- (id)initWithFrame:(CGRect)frame andSlides:(NSArray *)slideSet;
 
 @end
 
