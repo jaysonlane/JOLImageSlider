@@ -18,6 +18,8 @@
 		D521EBCD172C2275008D8C35 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D521EBCC172C2275008D8C35 /* Default-568h@2x.png */; };
 		D521EBD0172C2275008D8C35 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D521EBCE172C2275008D8C35 /* MainStoryboard.storyboard */; };
 		D521EBD3172C2275008D8C35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D521EBD2172C2275008D8C35 /* ViewController.m */; };
+		D521EBDB172C2294008D8C35 /* JOLImageSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = D521EBDA172C2294008D8C35 /* JOLImageSlider.m */; };
+		D521EBDE172C2691008D8C35 /* JOLImageSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = D521EBDD172C2691008D8C35 /* JOLImageSlide.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,10 @@
 		D521EBCF172C2275008D8C35 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D521EBD1172C2275008D8C35 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		D521EBD2172C2275008D8C35 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D521EBD9172C2294008D8C35 /* JOLImageSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLImageSlider.h; sourceTree = "<group>"; };
+		D521EBDA172C2294008D8C35 /* JOLImageSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlider.m; sourceTree = "<group>"; };
+		D521EBDC172C2691008D8C35 /* JOLImageSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JOLImageSlide.h; sourceTree = "<group>"; };
+		D521EBDD172C2691008D8C35 /* JOLImageSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JOLImageSlide.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,10 @@
 			children = (
 				D521EBC5172C2275008D8C35 /* AppDelegate.h */,
 				D521EBC6172C2275008D8C35 /* AppDelegate.m */,
+				D521EBDC172C2691008D8C35 /* JOLImageSlide.h */,
+				D521EBDD172C2691008D8C35 /* JOLImageSlide.m */,
+				D521EBD9172C2294008D8C35 /* JOLImageSlider.h */,
+				D521EBDA172C2294008D8C35 /* JOLImageSlider.m */,
 				D521EBCE172C2275008D8C35 /* MainStoryboard.storyboard */,
 				D521EBD1172C2275008D8C35 /* ViewController.h */,
 				D521EBD2172C2275008D8C35 /* ViewController.m */,
@@ -176,6 +186,8 @@
 				D521EBC3172C2275008D8C35 /* main.m in Sources */,
 				D521EBC7172C2275008D8C35 /* AppDelegate.m in Sources */,
 				D521EBD3172C2275008D8C35 /* ViewController.m in Sources */,
+				D521EBDB172C2294008D8C35 /* JOLImageSlider.m in Sources */,
+				D521EBDE172C2691008D8C35 /* JOLImageSlide.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
